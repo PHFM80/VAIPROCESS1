@@ -1,0 +1,255 @@
+/* Estilos Globales */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    box-sizing: border-box;
+  }
+  
+
+
+
+  /* Estilos para el Header */
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    padding: 10px 20px;
+  }
+  
+  .header-column {
+    flex: 1;
+  }
+  
+  .center {
+    text-align: center;
+  }
+  
+  .logo {
+    /* Estilos para el logo */
+  }
+  
+  nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .login {
+    text-align: right;
+  }
+  
+
+
+
+
+  /* Estilos para el Main */
+  main {
+    padding: 20px;
+  }
+  
+  .section {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+  }
+  
+  .section h2 {
+    color: #333;
+  }
+  
+  .section p {
+    color: #555;
+  }
+  
+
+  /* Estilos para la seccion bienvenida */
+  .cabecera {
+    display: flex;
+    gap: 20px; /* Espacio entre las dos partes */
+    align-items: center; /* Alinea verticalmente al centro */
+    background-color: #f0f0f0; /* Color de fondo */
+    padding: 20px;
+  }
+  
+  .cabecera-izquierda {
+    flex-basis: 50%; /* La parte izquierda ocupa el 50% del ancho */
+  }
+  
+  .cabecera-izquierda img {
+    max-width: 100%; /* La imagen no superará su contenedor */
+    border-radius: 15px; /* Borde redondeado */
+  }
+  
+  .cabecera-derecha {
+    flex-basis: 50%; /* La parte derecha ocupa el otro 50% */
+    text-align: left; /* Alineación del texto a la izquierda */
+  }
+  
+  .cabecera-derecha h1 {
+    color: #333; /* Color del encabezado */
+  }
+  
+  .cabecera-derecha p {
+    color: #555; /* Color para el párrafo */
+  }
+  
+  .cabecera-derecha a {
+    color: #007BFF; /* Color para el enlace */
+    text-decoration: none; /* Sin subrayado */
+  }
+  
+
+
+
+  /* Estilos para la Sección "Acerca" */
+  #acerca {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .photo {
+    flex-basis: 50%; /* La imagen ocupará el 50% del contenedor */
+  }
+  
+  .rounded-photo {
+    border-radius: 15px; /* Borde redondeado */
+    max-width: 100%; /* La imagen no excederá su contenedor */
+    height: auto; /* Mantiene la proporción original de la imagen */
+  }
+  
+  .text {
+    flex-basis: 50%; /* La parte del texto ocupará el otro 50% */
+  }
+  
+
+
+
+/* Estilos para la seccion servicios*/
+#servicios {
+    padding: 20px;
+  }
+  
+  .servicio {
+    display: flex; /* Para colocar foto y descripción uno al lado del otro */
+    gap: 20px; /* Espacio entre la foto y la descripción */
+    border-bottom: 1px solid #ccc; /* Borde para separar los servicios */
+    padding-bottom: 10px; /* Espacio entre los servicios */
+    margin-bottom: 10px; /* Espacio inferior para separar servicios */
+  }
+  
+  .servicio-foto {
+    flex-basis: 30%; /* La foto ocupa el 30% */
+  }
+  
+  .servicio-foto img {
+    max-width: 100%; /* La imagen no excederá su contenedor */
+    border-radius: 10px; /* Borde redondeado */
+  }
+  
+  .servicio-descripcion {
+    flex-basis: 70%; /* El texto ocupa el 70% */
+  }
+  
+  .servicio-descripcion h3 {
+    color: #333; /* Color del encabezado */
+  }
+  
+  .servicio-descripcion p {
+    color: #555; /* Color del párrafo */
+  }
+  .servicio-descripcion ul {
+  list-style-type: disc; /* Uso de viñetas para las listas */
+  padding-left: 20px; /* Espacio antes de las viñetas */
+}
+
+.servicio-descripcion ul li {
+  color: #555; /* Color del texto en la lista */
+}
+
+
+/*Estilos para seccion contacto*/
+#contacto {
+    padding: 20px; /* Espaciado interno */
+    background-color: #f9f9f9; /* Fondo claro para la sección */
+  }
+  
+  .contacto-titulo {
+    text-align: center; /* Centra el título */
+    margin-bottom: 20px; /* Espacio entre el título y el resto de la sección */
+  }
+  
+  .contacto-info {
+    flex-basis: 40%; /* La información ocupa el 40% del ancho */
+    text-align: center; /* Centra el contenido */
+  }
+  
+  .contacto-info h3 {
+    color: #333; /* Color para el encabezado de la información */
+  }
+  
+  .contacto-info p {
+    color: #555; /* Color para el texto */
+  }
+  
+  .contacto-formulario {
+    flex-basis: 55%; /* El formulario ocupa el 55% del ancho */
+  }
+  
+  .contacto-formulario h3 {
+    color: #333; /* Color para el encabezado del formulario */
+  }
+  
+  .contacto-formulario label {
+    display: block; /* Los labels se muestran en línea propia */
+    margin-bottom: 5px; /* Espacio entre el label y el campo de entrada */
+    color: #333; /* Color para los labels */
+  }
+  
+  .contacto-formulario input,
+  .contacto-formulario textarea {
+    width: 100%; /* Los campos de entrada ocupan todo el ancho */
+    padding: 10px; /* Espaciado interno */
+    margin-bottom: 10px; /* Espacio entre campos */
+    border: 1px solid #ccc; /* Bordes para los campos */
+    border-radius: 5px; /* Bordes redondeados */
+  }
+  
+  .contacto-formulario button {
+    background-color: #333; /* Fondo del botón */
+    color: white; /* Color del texto del botón */
+    padding: 10px 20px; /* Espaciado interno */
+    border: none; /* Sin bordes para un diseño limpio */
+    border-radius: 5px; /* Bordes redondeados para el botón */
+    cursor: pointer; /* Cursor de mano */
+  }
+  
+  .contacto-formulario button:hover {
+    background-color: #555; /* Cambio de color al pasar el mouse */
+  }
+  
+  
+  
+
+
+
+  /* Estilos para el Footer */
+  footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+  }
+  
