@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- LINK AL ARCHIVO DE BOOTSTRAP -->
+    <link rel="stylesheet" href="{{ url_for('static', filename ='css/bootstrap.min.css') }}">
+
+    <!-- LINK A LA PAGINA DE ICONS DE BOOTSRTEAP -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <!-- LINK A LOS ESTILOS PERSONALIZADOS DE LA PLANTILLLA -->
+    <link rel="stylesheet" href= "{{ url_for('static', filename='css/estilosplantilla.css') }}">
+
+    {% block extra_styles %}
+    <!-- Este bloque puede ser sobrescrito por plantillas derivadas para agregar más estilos PROPIOS DE CADA HTML -->
+    {% endblock %}
+
+    <title> {% block title %}  {% endblock %} </title>
+</head>
+
+
+<body>
+    <div class="wrapper">
+        <header>
+            {% block header %}
+                {% block izquierda %}{% endblock %}
+                {% block centro %}{% endblock %}
+                {% block derecha %}{% endblock %}
+            {% endblock %}
+        </header>
+
+        <main>
+            {% block main %}{% endblock %}
+        </main>
+
+        <footer>
+            {% block footer %}{% endblock %}
+        </footer>
+    </div>
+
+    {% block scripts %}
+    <!-- Este bloque puede ser sobrescrito por plantillas derivadas para agregar más scripts -->
+    {% endblock %}
+    
+    
+</body>
+
+
+</html>

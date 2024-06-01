@@ -1,0 +1,35 @@
+
+.header {
+    display: flex;
+    justify-content: space-between; /* Para distribuir los elementos horizontalmente */
+    align-items: center; /* Para alinear verticalmente */
+  }
+  
+  /* Estilos para la columna izquierda del encabezado */
+  #headerizq {
+    width: 25%;
+    text-align: center; /* Para centrar el texto */
+  }
+  
+  /* Estilos para la columna central del encabezado */
+  #headercen {
+    width: 50%;
+  }
+  
+  /* Estilos para la columna derecha del encabezado */
+  #headerder {
+    width: 25%;
+    text-align: center; /* Para centrar el texto */
+  }
+  
+  /* Estilos para los enlaces en la columna central */
+  #headercen nav ul {
+    display: flex; /* Para que los elementos de la lista se muestren en línea */
+    justify-content: space-between; /* Para distribuir los elementos horizontalmente */
+    list-style: none; /* Quitar las viñetas de la lista */
+    padding: 0; /* Eliminar el relleno predeterminado */
+  }
+  
+  #headercen nav ul li {
+    margin-right: 5px; /* Espacio entre los elementos de la lista */
+  }

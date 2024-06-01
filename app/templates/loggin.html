@@ -1,0 +1,89 @@
+{% extends "./plantilla.html" %}
+
+
+
+{% block extra_styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosloggin.css') }}">
+{% endblock %}
+
+{% block titulo %} Loggin {% endblock%}
+ 
+<!-- Inicio del Body -->
+{% block body %} 
+
+
+  <!-- Inicio del Header -->
+  {% block header %}  
+    <header class="header">
+      {% block izquierda %} 
+      <div class="header-column", id = "header-izq">
+        <div class="logo">Logo</div>
+      </div>
+      {% endblock %}
+
+      {% block centro %}
+        <div class="header-column", id = "header-cen">
+          
+        </div>
+      {% endblock %}
+
+      {% block derecha %} 
+        <div class="header-column", id = "header-der">
+        <a href=" {{ url_for('index') }} " class="button"> Volver al inicio </a>
+        </div>
+      {% endblock %}
+  </header>
+
+  {% endblock %}
+  <!-- Fin del Header -->
+
+
+
+  <!-- Inicio del Main -->
+  {% block main %}  
+  <div id="body">
+    <div class="login-container">
+      <h2>Inicio de Sesión</h2>
+      <form action="/login" method="POST">
+        <div class="form-group">
+          <label for="email">Correo Electrónico:</label>
+          <input type="email" id="email" name="email" required>
+          <div id="emailError" class="error">Correo electrónico no válido</div>
+        </div>
+        <div class="form-group">
+          <label for="username">Usuario:</label>
+          <input type="text" id="username" name="username" required>
+          <div id="usernameError" class="error">Usuario no válido</div>
+        </div>
+        <div class="form-group">
+          <label for="password">Contraseña:</label>
+          <input type="password" id="password" name="password" required>
+          <div id="passwordError" class="error">Contraseña no válida</div>
+          <div id="ojito"><button  id="togglePassword" >🙈</button></div>
+        </div>
+        <div class="form-group">
+          <button type="submit" id="submitButton" disabled>Iniciar Sesión</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+  {% endblock %}
+ 
+  <!-- Fin del main -->
+
+  <!-- Pie de Página -->
+  {% block footer %}  
+  <p>© 2024 Mi Empresa. Todos los derechos reservados.</p>
+  {% endblock %}
+  
+
+
+  {% block scripts %}
+  <script src="{{ url_for('static', filename='js/loggin.js') }}"></script>
+  {% endblock %}
+
+{% endblock %}
+
+
