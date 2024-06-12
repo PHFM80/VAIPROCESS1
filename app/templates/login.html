@@ -1,0 +1,98 @@
+{% extends "./plantilla.html" %}
+
+
+
+{% block extra_styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estiloslogin.css') }}">
+{% endblock %}
+
+{% block title %} Login de vai {% endblock%}
+ 
+<!-- Inicio del Body -->
+{% block body %} 
+
+
+  <!-- Inicio del Header -->
+  {% block header %}  
+    <header class="header">
+      {% block izquierda %}
+      {% include '_logo.html' %}
+      {% endblock %}
+
+      {% block centro %}
+
+      {% endblock %}
+
+      {% block derecha %} 
+        <div class="header-column", id = "header-der">
+          <a href=" {{ url_for('index') }} " class="button"> Volver al inicio </a>
+        </div>
+      {% endblock %}
+  </header>
+
+  {% endblock %}
+  <!-- Fin del Header -->
+
+
+
+  <!-- Inicio del Main -->
+  {% block main %}  
+    <div id="body">
+      <div class="login-container">
+        <h2>Inicio de Sesión</h2>
+        <!-- Impresión del mensaje que sale desde la app de usuario incorrecto o inexistente  -->
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                {{ message }} 
+                <button type="button" class="btn-close smaller-btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
+        <!-- Fin de impresión del mensaje que sale desde la app de usuario incorrecto o inexistente  -->
+
+        <form class="form-signin" action="/login" method="POST">
+          
+          <div class="form-group">
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error">Correo electrónico no válido</div>
+          </div>
+          <div class="form-group">
+            <label for="username">Usuario:</label>
+            <input type="text" id="username" name="username" required>
+            <div id="usernameError" class="error">Usuario no válido</div>
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" id="password" name="password" required>
+            <div id="passwordError" class="error">Contraseña no válida</div>
+            <div id="ojito"><button  id="togglePassword" >🙈</button></div>
+          </div>
+          <div class="form-group">
+            <button type="submit" id="submitButton" disabled>Iniciar Sesión</button>
+          </div>
+        </form>
+      </div>
+    </div>
+ 
+  {% endblock %}
+  <!-- Fin del main -->
+
+  <!-- Pie de Página -->
+  {% block footer %}  
+    {% include '_footer.html' %}
+  {% endblock %}
+  
+
+
+  {% block scripts %}
+  <script src="{{ url_for('static', filename='js/login.js') }}"></script>
+  {% endblock %}
+
+{% endblock %}
+
+

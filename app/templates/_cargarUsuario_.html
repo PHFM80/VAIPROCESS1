@@ -1,0 +1,131 @@
+<h2>Cargar Usuario</h2>
+<form action="{{ url_for('cargarUsuario') }}" method="post">
+    <!-- ID: Generado automáticamente en el backend -->
+    
+    <!-- Nombre1 -->
+    <label for="nombre1">Nombre: *</label>
+    <input type="text" id="nombre1" name="nombre1" required>
+    <span class="error-msg" id="nombre1-error">* campo obligatorio</span>
+    
+    <!-- Nombre2 -->
+    <label for="nombre2">Segundo Nombre:</label>
+    <input type="text" id="nombre2" name="nombre2">
+    
+    <!-- Apellido1 -->
+    <label for="apellido1">Apellido: *</label>
+    <input type="text" id="apellido1" name="apellido1" required>
+    <span class="error-msg" id="apellido1-error">* campo obligatorio</span>
+    
+    <!-- Apellido2 -->
+    <label for="apellido2">Segundo Apellido:</label>
+    <input type="text" id="apellido2" name="apellido2">
+    
+    <!-- Fecha de Nacimiento -->
+    <label for="fechaNacimiento">Fecha de Nacimiento: *</label>
+    <input type="date" id="fechaNacimiento" name="fechaNacimiento" required>
+    <span class="error-msg" id="fechaNacimiento-error">* campo obligatorio</span>
+    
+    <!-- Tipo de Documento -->
+    <label for="tipoDocumento">Tipo de Documento: *</label>
+    <select id="tipoDocumento" name="tipoDocumento" required>
+        {% for tipo in tipos_de_documento %}
+        <option value="{{ tipo.id }}">{{ tipo.nombre }}</option>
+        {% endfor %}
+    </select>
+    <span class="error-msg" id="tipoDocumento-error">* campo obligatorio</span>
+    
+    <!-- Número de Documento -->
+    <label for="nroDocumento">Número de Documento: *</label>
+    <input type="text" id="nroDocumento" name="nroDocumento" required>
+    <span class="error-msg" id="nroDocumento-error">* campo obligatorio</span>
+    
+    <!-- Foto -->
+    <label for="foto">Foto:</label>
+    <input type="file" id="foto" name="foto">
+    
+    <!-- Fecha de Alta -->
+    <input type="hidden" id="fechaDeAlta" name="fechaDeAlta" value="{{ fecha_actual }}">
+    
+    <!-- Habilitado -->
+    <label for="habilitado">Habilitado: *</label>
+    <input type="checkbox" id="habilitado" name="habilitado" checked>
+    
+    <!-- Calle -->
+    <label for="calle">Calle: *</label>
+    <input type="text" id="calle" name="calle" required>
+    <span class="error-msg" id="calle-error">* campo obligatorio</span>
+    
+    <!-- Número -->
+    <label for="numero">Número: *</label>
+    <input type="text" id="numero" name="numero" required>
+    <span class="error-msg" id="numero-error">* campo obligatorio</span>
+    
+    <!-- Piso -->
+    <label for="piso">Piso:</label>
+    <input type="text" id="piso" name="piso" value="0">
+    
+    <!-- Departamento -->
+    <label for="departamento">Departamento:</label>
+    <input type="text" id="departamento" name="departamento" value="0">
+    
+    <!-- Email -->
+    <label for="email">Email: *</label>
+    <input type="email" id="email" name="email" required>
+    <span class="error-msg" id="email-error">* campo obligatorio</span>
+    <span class="email-format-msg">Ingrese un correo electrónico válido.</span>
+    
+    <!-- Rol -->
+    <label for="rol">Rol: *</label>
+    <select id="rol" name="rol" required>
+        {% for rol in roles %}
+        <option value="{{ rol.id }}">{{ rol.nombre }}</option>
+        {% endfor %}
+    </select>
+    <span class="error-msg" id="rol-error">* campo obligatorio</span>
+    
+    <!-- Usuario -->
+    <label for="usuario">Usuario: *</label>
+    <input type="text" id="usuario" name="usuario" required>
+    <span class="error-msg" id="usuario-error">* campo obligatorio</span>
+    
+    <!-- Password -->
+    <label for="password">Contraseña: *</label>
+    <input type="text" id="password" name="password" required>
+    <button type="button" id="generate-password">Generar Contraseña</button>
+    <span class="error-msg" id="password-error">* campo obligatorio</span>
+    
+    <!-- Código País -->
+    <label for="codigoPais">Código País: *</label>
+    <input type="text" id="codigoPais" name="codigoPais" required>
+    <span class="error-msg" id="codigoPais-error">* campo obligatorio</span>
+    
+    <!-- Teléfono -->
+    <label for="telefono">Teléfono: *</label>
+    <input type="text" id="telefono" name="telefono" required>
+    <span class="error-msg" id="telefono-error">* campo obligatorio</span>
+    
+    <!-- País -->
+    <label for="pais">País: *</label>
+    <select id="pais" name="pais" required>
+        {% for pais in paises %}
+        <option value="{{ pais.id }}">{{ pais.nombre }}</option>
+        {% endfor %}
+    </select>
+    <span class="error-msg" id="pais-error">* campo obligatorio</span>
+    
+    <!-- Región / Provincia -->
+    <label for="region">Región / Provincia: *</label>
+    <select id="region" name="region" required>
+        <!-- Opciones cargadas dinámicamente según el país seleccionado -->
+    </select>
+    <span class="error-msg" id="region-error">* campo obligatorio</span>
+    
+    <!-- Comuna / Departamento -->
+    <label for="comuna">Comuna / Departamento: *</label>
+    <select id="comuna" name="comuna" required>
+        <!-- Opciones cargadas dinámicamente según la región seleccionada -->
+    </select>
+    <span class="error-msg" id="comuna-error">* campo obligatorio</span>
+    
+    <button type="submit">Cargar</button>
+</form>

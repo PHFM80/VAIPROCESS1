@@ -1,0 +1,31 @@
+<style>
+.module {
+    margin-bottom: 10px;
+}
+
+.toggle {
+    cursor: pointer;
+    position: relative;
+}
+
+.toggle::after {
+    content: '\25BA'; /* Unicode character for a right-pointing arrow */
+    position: absolute;
+    right: 10px;
+    transition: transform 0.3s;
+}
+
+.toggle.active::after {
+    transform: rotate(90deg); /* Rotate the arrow to point down */
+}
+
+.toggle-content {
+    display: none;
+    margin-left: 20px;
+    list-style-type: none;
+}
+
+.toggle-content li {
+    margin-bottom: 5px;
+}
+</style>

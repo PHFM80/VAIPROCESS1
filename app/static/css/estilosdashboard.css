@@ -1,0 +1,105 @@
+/* Estilos del main y aside */
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.container {
+  display: flex;
+  height: 100%; /* Para ocupar toda la altura de la página */
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+main {
+  background-color: #a271e2;
+  flex: 1;
+  padding: 20px;
+  margin-left: 40px; /* Espacio entre aside y main */
+  
+}
+
+aside {
+  width: 250px;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+/* Estilos del footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+}
+
+/* Estilos para el aside */
+.aside1 {
+  padding: 20px;
+  width: 250px;
+  height: 100%;
+}
+
+.module {
+  margin-bottom: 20px;
+}
+
+.module h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.module ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.module ul li {
+  margin-bottom: 5px;
+}
+
+.module ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.module ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para la imagen de perfil */
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+
+/* Estilos del formulario de carga de usuario */
+form {
+  max-width: 600px;
+  margin: auto;
+}
+
+label {
+  display: block;
+  margin: 10px 0 5px;
+}
+
+input, select, button {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.error-msg {
+  color: red;
+  display: none;
+}
+
+.email-format-msg {
+  color: gray;
+  font-size: 12px;
+}
+
+
