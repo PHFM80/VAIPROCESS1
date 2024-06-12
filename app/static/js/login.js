@@ -89,7 +89,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const usernameError = document.getElementById("usernameError");
     const passwordError = document.getElementById("passwordError");
 
-    const usernameRegex = /^(uso0[1-4]00)\d{1,4}$/;
+    const usernameRegex = /^(uso0[1-4]0)\d{1,4}$/;
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{15,}$/;
 
     function validateEmail() {

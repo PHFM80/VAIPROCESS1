@@ -3,9 +3,9 @@
 {% block extra_styles %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosindex.css') }}">
 {% endblock %}
-  <!-- <link rel="stylesheet" href= "{{url_for ('static', filename ='css/styles.css') }} "> -->
 
-{% block titulo %} Vaiprocess {% endblock%}
+
+  {% block title %} Vaiprocess {% endblock%}
  
 
 <!-- Inicio del Body -->
@@ -15,14 +15,12 @@
   <!-- Inicio del Header -->
   {% block header %} 
     <header class="header">
-      {% block izquierda %} 
-        <div class="header-column", id = "headerizq">
-          <div class="logo">Logo</div>
-        </div>
+      {% block izquierda %}
+      {% include '_logo.html' %}
       {% endblock %}
     
       {% block centro %}
-        <div class="header-column", id = "headercen" >
+        <div class="header-column", id = "header-cen" >
           <nav>
             <ul>
               <li><a href="#">Inicio</a></li>
@@ -35,9 +33,10 @@
         </div>
       {% endblock %}
 
+
       {% block derecha %} 
-        <div class="header-column", id = "headerder">
-          <a href=" {{ url_for('loggin') }} ">Iniciar sesión</a>
+        <div class="header-column", id = "header-der">
+          <a href=" {{ url_for('login') }} ">Iniciar sesión</a>
         </div>
       {% endblock %}
     </header>
@@ -57,8 +56,8 @@
 
       <!-- Parte Derecha: Imagen -->
       <div class="cabecera-izquierda">
-        <img src="{{url_for ('static', filename ='web_images/bienvenida.jpg') }} "
-        alt="Logo de VAI Process" class="rounded-photo">
+        <img src="{{url_for ('static', filename ='web_images/bienvenida.jpg') }} ">
+        
       </div>
     </div>
 
@@ -358,7 +357,7 @@
 
   <!-- Pie de Página -->
   {% block footer %}  
-  <p>© 2024 Mi Empresa. Todos los derechos reservados.</p>
+    {% include '_footer.html' %}
   {% endblock %}
   
 
