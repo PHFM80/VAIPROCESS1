@@ -1,10 +1,11 @@
+import os
 from flask import Flask, render_template, redirect, flash, request, send_file, url_for, request, jsonify
 from configuraciones import config
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from funciones import get_dashboard_page, status_401, status_404, get_user_type
+from funciones import hash_password, status_401, status_404, get_user_type, buscarComuna, buscarPais, buscarRegion, buscarRoles, buscarTiposDocumento, obtenerSiguienteIdUsuario, generarContrasena, generarNombreUsuario, generate_password_hash, validarCorreo, organizar_datos
 from datetime import datetime
-from models import db, Usuario, TipoDocumento, Rol, Pais, Region, Comuna
+
 
 
 # Importación de la clase usuario desde modelUser y entity
@@ -25,6 +26,7 @@ login_manager_app = LoginManager(app)
 @login_manager_app.user_loader
 def load_user(id):
     return modelUsuario.get_by_id(db, id)
+
 
 # 5) Inicializar las rutas
 @app.route("/")
@@ -78,58 +80,58 @@ def dashboard():
     return render_template('dashboard.html', user_type=user_type)
 
 
-@app.route('/cargarUsuario')
+@app.route('/cargarUsuario', methods=['GET', 'POST'])
 def cargarUsuario():
-    tipos_de_documento = TipoDocumento.query.all()
-    roles = Rol.query.all()
-    paises = Pais.query.all()
-    fecha_actual = datetime.now().strftime('%Y-%m-%d')
-    return render_template('_cargarUsuario_.html', tipos_de_documento=tipos_de_documento, roles=roles, paises=paises, fecha_actual=fecha_actual)
+    if request.method == 'GET':
+        # Obtener los datos necesarios para cargar la página inicialmente
+        siguiente_id_usuario = obtenerSiguienteIdUsuario(db)
+        roles = buscarRoles(db)
+        paises = buscarPais(db)
+        regiones = buscarRegion(db)  # Inicialmente, no se filtran por país
+        comunas = buscarComuna(db)  # Inicialmente, no se filtran por región
+        datos_organizados = organizar_datos(db)  # Datos de países organizados en forma de diccionario
+        tipos_documento = buscarTiposDocumento(db)
 
-@app.route('/cargarUsuario', methods=['POST'])
-def cargarUsuario():
-    # Obtén los datos del formulario
-    datos_usuario = request.form.to_dict()
-    # Aquí deberás realizar la validación y almacenamiento en la base de datos
-    nuevo_usuario = Usuario(
-        id=Usuario.query.order_by(Usuario.id.desc()).first().id + 1,
-        nombre1=datos_usuario['nombre1'],
-        nombre2=datos_usuario['nombre2'],
-        apellido1=datos_usuario['apellido1'],
-        apellido2=datos_usuario['apellido2'],
-        fechaNacimiento=datos_usuario['fechaNacimiento'],
-        tiposdedocumentos_idTipoDeDocumento=datos_usuario['tipoDocumento'],
-        nroDocumento=datos_usuario['nroDocumento'],
-        foto=datos_usuario['foto'],
-        fechaDeAlta=datos_usuario['fechaDeAlta'],
-        habilitado=datos_usuario['habilitado'] == 'on',
-        calle=datos_usuario['calle'],
-        numero=datos_usuario['numero'],
-        piso=datos_usuario.get('piso', '0'),
-        departamento=datos_usuario.get('departamento', '0'),
-        email=datos_usuario['email'],
-        roles_idRol=datos_usuario['rol'],
-        usuario=datos_usuario['usuario'],
-        password=datos_usuario['password'],
-        codigoPais=datos_usuario['codigoPais'],
-        telefono=datos_usuario['telefono'],
-        paises_idpais=datos_usuario['pais'],
-        regiones_provincias_idRegion_Provincia=datos_usuario['region'],
-        comunas_departamentos_idComuna_Departamento=datos_usuario['comuna']
-    )
-    db.session.add(nuevo_usuario)
-    db.session.commit()
-    return "Usuario cargado correctamente"
+        # Pasar los datos a la plantilla
+        data = {
+            'siguiente_id_usuario': siguiente_id_usuario,
+            'roles': roles,
+            'paises': paises,
+            'regiones': regiones,
+            'comunas': comunas,
+            'tipos_documento': tipos_documento
+        }
+        return render_template('_cargarUsuario_.html', data=data)
 
-@app.route('/get_regiones/<int:pais_id>')
+
+
+
+    elif request.method == 'POST':
+        print ("el usaurio se cargo exitosamente")
+        pass
+
+
+ 
+
+#cosas que no se si van a funcionar
+
+@app.route('/get_regiones/<pais_id>', methods=['GET'])
 def get_regiones(pais_id):
-    regiones = Region.query.filter_by(pais_id=pais_id).all()
-    return jsonify([{'id': region.id, 'nombre': region.nombre} for region in regiones])
+    # Obtener las regiones según el país seleccionado
+    regiones = buscarRegion(db, pais_id)
+    return jsonify(regiones)
 
-@app.route('/get_comunas/<int:region_id>')
+@app.route('/get_comunas/<region_id>', methods=['GET'])
 def get_comunas(region_id):
-    comunas = Comuna.query.filter_by(region_id=region_id).all()
-    return jsonify([{'id': comuna.id, 'nombre': comuna.nombre} for comuna in comunas])
+    # Obtener las comunas según la región seleccionada
+    comunas = buscarComuna(db, region_id)
+    return jsonify(comunas)
+
+
+#cosas q no se si van a funcionar
+
+
+
 
 
 
@@ -155,3 +157,5 @@ if __name__ == '__main__':
     app.register_error_handler(401, status_401)
     app.register_error_handler(404, status_404)
     app.run(port=5000)
+
+

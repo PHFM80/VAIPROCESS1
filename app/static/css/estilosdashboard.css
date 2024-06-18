@@ -2,11 +2,13 @@
 body, html {
   height: 100%;
   margin: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
   display: flex;
-  height: 100%; /* Para ocupar toda la altura de la página */
+  flex: 1;
   margin-left: 20px;
   margin-right: 20px;
 }
@@ -16,7 +18,6 @@ main {
   flex: 1;
   padding: 20px;
   margin-left: 40px; /* Espacio entre aside y main */
-  
 }
 
 aside {
@@ -31,6 +32,10 @@ footer {
   padding: 10px;
   background-color: #333;
   color: #fff;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 50px; /* Altura del footer */
 }
 
 /* Estilos para el aside */
@@ -74,32 +79,15 @@ footer {
   border-radius: 50%;
 }
 
-
-/* Estilos del formulario de carga de usuario */
-form {
-  max-width: 600px;
-  margin: auto;
+/* Estilos para la validacion del correo */
+.is-invalid {
+  border-color: red;
 }
 
-label {
-  display: block;
-  margin: 10px 0 5px;
+.is-valid {
+  border-color: green;
 }
 
-input, select, button {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-}
 
-.error-msg {
-  color: red;
-  display: none;
-}
-
-.email-format-msg {
-  color: gray;
-  font-size: 12px;
-}
 
 
