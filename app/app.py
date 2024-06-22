@@ -1,10 +1,10 @@
 import os
 from flask import Flask, render_template, redirect, flash, request, send_file, url_for, request, jsonify
+import json
 from configuraciones import config
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
-from funciones import hash_password, status_401, status_404, get_user_type, buscarComuna, buscarPais, buscarRegion, buscarRoles, buscarTiposDocumento, obtenerSiguienteIdUsuario, generarContrasena, generarNombreUsuario, generate_password_hash, validarCorreo, organizar_datos
-from datetime import datetime
+from funciones import hash_password, status_401, status_404, get_user_type, buscarComuna, buscarPais, buscarRegion, buscarRoles, buscarTiposDocumento, obtenerSiguienteIdUsuario, generarContrasena, generate_password_hash, validarCorreo,  buscarRegionPorPais
 
 
 
@@ -80,56 +80,35 @@ def dashboard():
     return render_template('dashboard.html', user_type=user_type)
 
 
+
+
+   
+
+
 @app.route('/cargarUsuario', methods=['GET', 'POST'])
+@login_required
 def cargarUsuario():
     if request.method == 'GET':
         # Obtener los datos necesarios para cargar la página inicialmente
         siguiente_id_usuario = obtenerSiguienteIdUsuario(db)
         roles = buscarRoles(db)
+        print (roles)
+        print(type(roles))
         paises = buscarPais(db)
-        regiones = buscarRegion(db)  # Inicialmente, no se filtran por país
-        comunas = buscarComuna(db)  # Inicialmente, no se filtran por región
-        datos_organizados = organizar_datos(db)  # Datos de países organizados en forma de diccionario
+        regiones = buscarRegion(db)  
+        comunas = buscarComuna(db)  
         tipos_documento = buscarTiposDocumento(db)
+        print (tipos_documento)
+        print (type(tipos_documento))
 
-        # Pasar los datos a la plantilla
-        data = {
-            'siguiente_id_usuario': siguiente_id_usuario,
-            'roles': roles,
-            'paises': paises,
-            'regiones': regiones,
-            'comunas': comunas,
-            'tipos_documento': tipos_documento
-        }
-        return render_template('_cargarUsuario_.html', data=data)
-
-
+        # Pasar los datos a la plantilla como variables individuales
+        return render_template('_cargarUsuario_.html', siguiente_id_usuario=siguiente_id_usuario,
+                            roles=roles, paises=paises, regiones=regiones, comunas=comunas, tipos_documento=tipos_documento)
 
 
     elif request.method == 'POST':
         print ("el usaurio se cargo exitosamente")
-        pass
-
-
- 
-
-#cosas que no se si van a funcionar
-
-@app.route('/get_regiones/<pais_id>', methods=['GET'])
-def get_regiones(pais_id):
-    # Obtener las regiones según el país seleccionado
-    regiones = buscarRegion(db, pais_id)
-    return jsonify(regiones)
-
-@app.route('/get_comunas/<region_id>', methods=['GET'])
-def get_comunas(region_id):
-    # Obtener las comunas según la región seleccionada
-    comunas = buscarComuna(db, region_id)
-    return jsonify(comunas)
-
-
-#cosas q no se si van a funcionar
-
+        return redirect(url_for('dashboard'))
 
 
 
