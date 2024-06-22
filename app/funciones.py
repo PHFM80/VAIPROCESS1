@@ -65,50 +65,6 @@ def buscarComuna(db):
     cursor.close()
     return comunas
 
-def organizar_datos(db):
-    # Obtener los datos de países, regiones y comunas
-    paises = buscarPais(db)
-    regiones = buscarRegion(db)
-    comunas = buscarComuna(db)
-    
-    # Estructura de datos para almacenar la salida
-    datos_organizados = {}
-    
-    # Primero agrupamos por país
-    for pais in paises:
-        id_pais = pais[0]
-        nombre_pais = pais[1]
-        codigo_telefonico = pais[2]
-        
-        # Inicializamos la estructura para este país
-        datos_organizados[nombre_pais] = {}
-        
-        # Luego agrupamos por regiones
-        for region in regiones:
-            id_region = region[0]
-            nombre_region = region[1]
-            id_pais_region = region[2]
-            
-            # Verificamos si esta región pertenece al país actual
-            if id_pais_region == id_pais:
-                
-                # Inicializamos la estructura para esta región
-                datos_organizados[nombre_pais][nombre_region] = []
-                
-                # Finalmente, agregamos las comunas correspondientes
-                for comuna in comunas:
-                    id_comuna = comuna[0]
-                    nombre_comuna = comuna[1]
-                    codigo_postal = comuna[2]
-                    id_region_comuna = comuna[3]
-                    
-                    # Verificamos si esta comuna pertenece a la región actual
-                    if id_region_comuna == id_region:
-                        datos_organizados[nombre_pais][nombre_region].append((nombre_comuna, codigo_postal))
-    
-    return datos_organizados
-
-
 def buscarTiposDocumento(db):
     cursor = db.connection.cursor()
     cursor.execute("SELECT idTipoDeDocumento, tipoDeDocumento FROM tiposdedocumentos")
@@ -132,26 +88,14 @@ def obtenerSiguienteIdUsuario(db):
         return 1
     else:
         return max_id + 1
-        
-    
-# def generarNombreUsuario(db, rol_id):
-#     cursor = db.connection.cursor()
-#     cursor.execute("SELECT identificadorDeRol FROM roles WHERE idRol = %s", (rol_id,))
-#     identificador = cursor.fetchone()[0]
-#     cursor.close()
-#     siguiente_id = obtenerSiguienteIdUsuario(db)
-#     nombre_usuario = f"{identificador}0{siguiente_id}"
-#     return nombre_usuario
 
-def generarNombreUsuario(db, rol_id):
+def buscarRegionPorPais(db, pais_id):
     cursor = db.connection.cursor()
-    cursor.execute("SELECT identificadorDeRol FROM roles WHERE idRol = %s", (rol_id,))
-    identificador = cursor.fetchone()[0]
+    query = "SELECT idRegion_Provincia, region_Provincia, paises_idpais FROM regiones_provincias WHERE paises_idpais = %s"
+    cursor.execute(query, (pais_id,))
+    regiones = cursor.fetchall()
     cursor.close()
-    siguiente_id = obtenerSiguienteIdUsuario(db)
-    nombre_usuario = f"{identificador}0{siguiente_id}"
-    print (nombre_usuario)
-    return nombre_usuario
+    return regiones
 
 
 
@@ -208,6 +152,9 @@ def validarCorreo(correo):
 
 def hash_password(password):
     return generate_password_hash(password)
+
+
+
 
 
 

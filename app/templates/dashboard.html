@@ -1,12 +1,15 @@
 {% extends "./plantilla.html" %}
 
+
+{% block title %} Dashboard - {{ user_type }} {% endblock %}
+
+
 {% block extra_styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosdashboard.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosModulos.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosfooter.css') }}">
 {% endblock %}
 
-{% block title %} Dashboard - {{ user_type }} {% endblock %}
 
 {% block body %}
     <!-- Inicio del Header -->
@@ -37,6 +40,8 @@
     </header>
     {% endblock %}
     <!-- Fin del Header -->
+
+    
     <!-- Contenedor del aside y del main -->
     <div class="container">
         <!-- Inicio del aside -->
@@ -77,7 +82,7 @@
     {% endblock %}
 
     {% block scripts %}
-    <script src="{{ url_for('static', filename='js/main_dash_usuarios.js') }}"></script>
+
     <script src="{{ url_for('static', filename='js/aside_dash.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     {% endblock %}
