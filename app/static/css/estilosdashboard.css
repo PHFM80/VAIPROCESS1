@@ -1,0 +1,93 @@
+/* Estilos del main y aside */
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  flex: 1;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+main {
+  background-color: #a271e2;
+  flex: 1;
+  padding: 20px;
+  margin-left: 40px; /* Espacio entre aside y main */
+}
+
+aside {
+  width: 250px;
+  padding: 20px;
+  background-color: #f4f4f4;
+}
+
+/* Estilos del footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  height: 50px; /* Altura del footer */
+}
+
+/* Estilos para el aside */
+.aside1 {
+  padding: 20px;
+  width: 250px;
+  height: 100%;
+}
+
+.module {
+  margin-bottom: 20px;
+}
+
+.module h2 {
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.module ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.module ul li {
+  margin-bottom: 5px;
+}
+
+.module ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+.module ul li a:hover {
+  text-decoration: underline;
+}
+
+/* Estilos para la imagen de perfil */
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* Estilos para la validacion del correo */
+.is-invalid {
+  border-color: red;
+}
+
+.is-valid {
+  border-color: green;
+}
+
+
+
+

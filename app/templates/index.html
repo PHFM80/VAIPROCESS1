@@ -1,38 +1,51 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VAIPROCESS</title>
-  <link rel="stylesheet" href="">
-</head>
+{% extends "./plantilla.html" %}
+
+{% block extra_styles %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilosindex.css') }}">
+{% endblock %}
+
+
+  {% block title %} Vaiprocess {% endblock%}
+ 
 
 <!-- Inicio del Body -->
-<body>
+{% block body %} 
+
+
   <!-- Inicio del Header -->
-  <header>
-    <div class="header-column">
-      <div class="logo">Logo</div>
-    </div>
-    <div class="header-column center">
-      <nav>
-        <ul>
-          <li><a href="#">Inicio</a></li>
-          <li><a href="#">Quienes Somos</a></li>
-          <li><a href="#">Servicios</a></li>
-          <li><a href="#">Catálogos</a></li>
-          <li><a href="#">Contacto</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="header-column">
-      <div class="login"><a href="#">Iniciar sesión</a></div>
-    </div>
-  </header>
+  {% block header %} 
+    <header class="header">
+      {% block izquierda %}
+      {% include '_logo.html' %}
+      {% endblock %}
+    
+      {% block centro %}
+        <div class="header-column", id = "header-cen" >
+          <nav>
+            <ul>
+              <li><a href="#">Inicio</a></li>
+              <li><a href="#">Quienes Somos</a></li>
+              <li><a href="#">Servicios</a></li>
+              <li><a href="#">Catálogos</a></li>
+              <li><a href="#">Contacto</a></li>
+            </ul>
+          </nav>
+        </div>
+      {% endblock %}
+
+
+      {% block derecha %} 
+        <div class="header-column", id = "header-der">
+          <a href=" {{ url_for('login') }} ">Iniciar sesión</a>
+        </div>
+      {% endblock %}
+    </header>
+  {% endblock %}
+  
+  <!-- Fin del Header -->
 
   <!-- Inicio del Main -->
-  <main>
-
+  {% block main %}  
     <!-- Sección de Bienvenida -->
     <div class="cabecera" id="inicio" style="display: flex; gap: 20px;">
       <!-- Parte Izquierda: TExto -->
@@ -43,18 +56,22 @@
 
       <!-- Parte Derecha: Imagen -->
       <div class="cabecera-izquierda">
-        <img src="app\static\web_images\bienvenida.jpg" alt="Logo de VAI Process" class="rounded-photo">
+        <img src="{{url_for ('static', filename ='web_images/bienvenida.jpg') }} ">
+        
       </div>
     </div>
 
 
     <!--Seccion acerca de nosotros / quienes somos-->
     <div class="section" id="quienes" style="display: flex; gap: 20px;">
+      <div class="section" id="quienes">
+        <h4>Quienes Somos</h4>
+      </div>
       <div class="photo">
-        <img src="fotos/FOTO ACERCA.jpg" alt="Foto de la empresa" class="rounded-photo">
+        <img src="{{url_for ('static', filename ='web_images/FOTO ACERCA.jpg') }} "
+        alt="Foto de la empresa" class="rounded-photo">
       </div>
       <div class="text">
-        <h4>Quienes Somos</h4>
         <h2><strong>VAI Process</strong> </h2>
         <p>
           Somos una empresa de ingeniería y construcción especializada en el tratamiento de aguas.
@@ -329,14 +346,22 @@
       </div>
     
     </section>
+  {% endblock %}
+  <main>
+
+    
 
 
   </main>
+  <!-- Fin del main -->
 
   <!-- Pie de Página -->
-  <footer>
-    <p>© 2024 Mi Empresa. Todos los derechos reservados.</p>
-  </footer>
-</body>
+  {% block footer %}  
+    {% include '_footer.html' %}
+  {% endblock %}
+  
 
-</html>
+{% endblock %}
+
+
+<!-- </html> -->

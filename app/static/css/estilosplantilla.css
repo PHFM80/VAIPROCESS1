@@ -1,0 +1,184 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Asegura que el cuerpo ocupe al menos el 100% de la altura de la ventana */
+}
+
+main {
+    flex: 1; /* El contenido principal se expandirá para llenar el espacio restante */
+}
+
+footer {
+    margin-top: auto; /* Empuja el footer hacia abajo */
+}
+
+/* Estilo general del body y del contenedor principal */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Ajustes para el main para ocupar el espacio disponible */
+main {
+    flex: 1;
+}
+
+/* Footer anclado al final de la página */
+footer {
+    background-color: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    bottom: 5;
+    width: 100%;
+}
+
+/* Centrar el contenido del footer */
+footer div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+footer img {
+    max-height: 50px;
+    margin-right: 20px;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* Estilos del header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
+
+.header-column {
+    flex: 1;
+    text-align: center;
+}
+
+#header-cen nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+#header-cen nav ul li {
+    margin: 0 15px;
+}
+
+#header-cen nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+/* Estilos de la cabecera */
+.cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    background-color: #e2e2e2;
+}
+
+.cabecera-derecha h4, .cabecera-derecha h2 {
+    margin: 0;
+}
+
+.cabecera-izquierda img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Sección de quienes somos */
+#quienes {
+    padding: 40px;
+    background-color: #f9f9f9;
+}
+
+.photo img {
+    max-width: 100%;
+    height: auto;
+}
+
+.text {
+    margin-left: 20px;
+}
+
+/* Sección de servicios */
+#servicios {
+    padding: 40px;
+    background-color: #fff;
+}
+
+.servicio {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.servicio-foto img {
+    max-width: 100%;
+    height: auto;
+}
+
+.servicio-descripcion {
+    margin-left: 20px;
+}
+
+/* Sección de catálogos */
+#catalogos {
+    padding: 40px;
+    background-color: #f9f9f9;
+    text-align: center;
+}
+
+.catalogos-contenedor {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+/* Sección de contacto */
+#contacto {
+    padding: 40px;
+    background-color: #f9f9f9;
+}
+
+.contacto-info {
+    text-align: center;
+}
+
+.contacto-formulario {
+    margin-left: 20px;
+}
+
+.contacto-formulario form div {
+    margin-bottom: 15px;
+}
+
+.contacto-formulario form input, .contacto-formulario form textarea {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.contacto-formulario form button {
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+}

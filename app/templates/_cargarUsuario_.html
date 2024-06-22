@@ -1,0 +1,275 @@
+{% extends "./plantilla.html" %}
+
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos_cargarUsuario_.css') }}">
+{% endblock %}
+
+{% block body %}
+<body>
+    
+    <!-- Inicio del Header -->
+    {% block header %}
+    <header class="header">
+        {% block izquierda %}
+            {% include '_logo.html' %}
+        {% endblock %}
+
+        {% block centro %}
+        <h2>Cargar Usuario</h2>
+        {% endblock %}
+
+        {% block derecha %}
+        <div class="header-column", id = "header-der">
+            <a href=" {{ url_for('dashboard') }} " class="button"> Volver </a>
+          </div>
+        {% endblock %}
+    </header>
+    {% endblock %}
+    <!-- Fin del Header -->
+    
+
+        <form action="{{ url_for('cargarUsuario') }}" method="post" enctype="multipart/form-data">
+            
+
+            <!-- Primer y segundo nombre -->
+            <div class="row g-3">
+                <div class="col">
+                    <label for="nombre1">Primer Nombre: *</label>
+                    <input type="text" class="form-control" id="nombre1" name="nombre1" required>
+                </div>
+                <div class="col">
+                    <label for="nombre2">Segundo Nombre:</label>
+                    <input type="text" class="form-control" id="nombre2" name="nombre2">
+                </div>
+            </div>
+        
+            <!-- Primer y segundo apellido -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="apellido1">Primer Apellido: *</label>
+                    <input type="text" class="form-control" id="apellido1" name="apellido1" required>
+                </div>
+                <div class="col">
+                    <label for="apellido2">Segundo Apellido:</label>
+                    <input type="text" class="form-control" id="apellido2" name="apellido2">
+                </div>
+            </div>
+
+            <!-- Tipo y numero de documento -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="tipoDocumento">Tipo de Documento: *</label>
+                    <select class="form-control" id="tipoDocumento" name="tipoDocumento" required>
+                        <option value="">Seleccione un Documento</option>
+                    </select>
+                    <input type="hidden" id="idTipoDocumento" name="idTipoDocumento">
+                </div>
+                <div class="col">
+                    <label for="nroDocumento">Número de Documento: *</label>
+                    <input type="text" class="form-control" id="nroDocumento" name="nroDocumento" required>
+                    <!-- Mensaje de advertencia -->
+                    <div class="invalid-feedback">
+                        Debe ingresar solo números.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fecha de Nacimiento y Fecha de Alta -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="fechaNacimiento">Fecha de Nacimiento: *</label>
+                    <input type="date" class="form-control" id="fechaNacimiento" name="fechaNacimiento" required>
+                </div>
+                <div class="col">
+                    <label for="fechaAlta">Fecha de Alta: *</label>
+                    <input type="date" class="form-control" id="fechaAlta" name="fechaAlta" required>
+                </div>
+            </div>
+        
+            <!-- Foto -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="foto">Foto:</label>
+                    <input type="file" class="form-control" id="foto" name="foto">
+                </div>
+                <div class="col">
+        
+                </div>
+            </div>
+
+            <!-- Calle y numero -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="calle">Calle: *</label>
+                    <input type="text" class="form-control" id="calle" name="calle" required>
+                </div>
+                <div class="col">
+                    <label for="numero">Número: *</label>
+                    <input type="text" class="form-control" id="numero" name="numero" required>
+                    <!-- Mensaje de advertencia -->
+                    <div class="invalid-feedback">
+                        Debe ingresar solo números.
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Piso y departamento -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="piso">Piso:</label>
+                    <input type="text" class="form-control" id="piso" name="piso" value="0">
+                </div>
+                <div class="col">
+                    <label for="departamento">Departamento:</label>
+                    <input type="text" class="form-control" id="departamento" name="departamento" value="0">
+                </div>
+            </div>   
+
+            <!-- Campo de Rol -->
+            <div class="row g-3 mt-3">
+                <div class="col-md-6">
+                    <label for="rol">Rol: *</label>
+                    <select class="form-control" id="rol" name="rol" required>
+                        <option value="">Seleccione un rol</option>
+                    </select>
+                    <input type="hidden" id="idRol" name="idRol">
+                    <input type="hidden" id="identificadorRol" name="identificadorRol">
+                </div>
+                <div class="col-md-6">
+                    <label for="usuario" class="form-label">Usuario: *</label>
+                    <input type="hidden" name="siguiente_id_usuario" value="{{ siguiente_id_usuario }}">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="usuario" id="usuario" value="{{ nombre_usuario if nombre_usuario else '' }}" readonly required>
+                        <button type="button" id="btn-generar-usuario" class="btn btn-secondary ms-2">Generar Usuario</button>
+                    </div>
+                </div>
+                <input type="hidden" id="codigoRol" name="codigoRol">
+                
+                
+            </div>
+
+            <!-- Email y Contraseña -->
+            <div class="row g-3 mt-3">
+                <div class="col-md-6">
+                    <label for="email">Email: *</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="password">Contraseña: *</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" name="password" id="password" readonly required>
+                        <button type="button" class="btn btn-success ms-2" onclick="generarContrasena()">Generar Contraseña</button>
+                    </div>
+                    <div class="form-check mt-2">
+                        <input class="form-check-input" type="checkbox" id="show-password" onclick="togglePasswordVisibility()">
+                        <label class="form-check-label" for="show-password">
+                            Mostrar contraseña
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Teléfono -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="telefono">Teléfono: *</label>
+                    <input type="text" class="form-control" id="telefono" name="telefono" required>
+                    <!-- Mensaje de advertencia -->
+                    <div class="invalid-feedback">
+                        Debe ingresar solo números.
+                    </div>
+                </div>
+                
+                <div class="col">
+        
+                </div>
+            </div>
+
+            <!-- País y Región -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="pais">País: *</label>
+                    <select class="form-control" id="pais" name="pais"  required>
+                        <option value="">Seleccione un país</option>
+                        <!-- Opciones se llenarán dinámicamente -->
+                    </select>
+                    <input type="hidden" id="idPaisInput" readonly>
+                </div>
+
+                <div class="col">
+                    <label for="region">Región / Provincia: *</label>
+                    <select class="form-control" id="region" name="region"  required>
+                        
+                        <!-- Opciones se llenarán dinámicamente -->
+                    </select>
+                    <input type="hidden" id="idRegionInput" readonly>
+                    <input type="hidden" id="pais_idpais" readonly>
+                </div>
+            </div>
+
+            <!-- Comuna y código postal -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="comuna">Comuna / Departamento: *</label>
+                    <select class="form-control" id="comuna" name="comuna" required>
+                        <option value="">Seleccione una comuna</option>
+                        <!-- Opciones se llenarán dinámicamente -->
+                    </select>
+                    <input type="hidden" id="idComunaInput" readonly>
+                    <input type="hidden" id="idRegionFK" readonly>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="codigo_postal">Código Postal:</label>
+                        <input type="text" id="codigoPostalInput" class="form-control" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Habilitar Usuario -->
+            <div class="row g-3 mt-3">
+                <div class="col">
+                    <label for="habilitarUsuarioSwitch">Habilitar Usuario: </label>
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" id="habilitarUsuarioSwitch" onchange="toggleSwitch()">
+                        <label class="form-check-label" for="habilitarUsuarioSwitch" id="switchLabel">Inhabilitado</label>
+                    </div>
+                </div>
+                <div class="col">
+                    <input type="hidden" id="estadoHabilitacionUsuario" readonly>
+                </div>
+            </div>
+            
+            <!-- Botón para cargar usuario -->
+            <div class="row g-3 mt-3">
+                <div class="row">
+                    <div class="col">
+                        <p>Por seguridad, previsualice los datos cargados antes de cargar al nuevo usuario. Para previsualizar, presione el botón.</p>
+                        <button type="button" id="previsualizarDatos" class="btn btn-primary mt-3">Previsualizar</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row g-3 mt-3">
+                <form method="POST" action="{{ url_for('cargarUsuario') }}">
+                    <button type="submit" class="btn btn-primary mt-3">Cargar Usuario</button>
+                </form>
+            </div>
+
+        </form>
+
+
+        {% block scripts %}
+        <script type="text/javascript">
+            const siguienteIdUsuario = {{ siguiente_id_usuario|tojson | safe }}; const roles = {{ roles|tojson | safe }};
+            const paises = {{ paises|tojson | safe }}; const regiones = {{ regiones|tojson | safe }};
+            const comunas = {{ comunas|tojson | safe }}; const tiposDocumento = {{ tipos_documento|tojson | safe }};
+
+        </script>
+        <script src="{{ url_for('static', filename='js/_cargarUsuarios_.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {% endblock %}
+    </body>
+{% endblock %}

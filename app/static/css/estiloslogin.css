@@ -1,0 +1,95 @@
+
+/* Aqui comienzan los estilos del cuerpo del loggin */
+#body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+    margin: 50px;
+
+}
+
+
+.login-container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    height: 400px;
+
+}
+.login-container h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007BFF;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.form-group button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+.form-group .error {
+    color: red;
+    font-size: 12px;
+    margin-top: 5px;
+    display: none;
+}
+
+#ojito{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#togglePassword{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+    padding: 10px;
+    background-color: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 15px;
+  
+}
+
+
+/* Estilos del cartel de informcaion de usuario incorrecto */
+.alert {
+    font-size: 10px; /* Ajusta el tamaño del texto de la alerta */
+    padding: 10px;   /* Ajusta el relleno de la alerta */
+    position: relative; /* Asegura que el botón de cierre se posicione correctamente */
+    width: 12rem;        /* Ajusta el ancho del botón de cierre */
+    height: 2rem;       /* Ajusta la altura del botón de cierre */
+  }
+  .smaller-btn-close {
+    background-color: #ffffff;
+    font-size: 0.45rem; /* Ajusta el tamaño de la fuente del botón de cierre */
+    padding: 0.1rem;   /* Ajusta el relleno del botón de cierre */
+
+    width: 0rem;        /* Ajusta el ancho del botón de cierre */
+    height: 0rem;       /* Ajusta la altura del botón de cierre */
+
+}

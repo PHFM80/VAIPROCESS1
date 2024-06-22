@@ -1,0 +1,33 @@
+
+footer {
+    background-color: #6c6c6c; /* Gris  */
+    width: 100%;
+    height: 100px;
+    display: flex;
+    align-items: center; /* Cambiado de flex-end a center */
+    font-size: 12px;
+
+    bottom: 0;
+    left: 0;
+    padding: 0 20px; /* Margen lateral */
+    box-sizing: border-box;
+}
+
+.footer-column {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.footer-column.center {
+    align-items: flex-end;
+   
+}
+
+.footer-logo {
+    max-height: 90%; /* Ajusta la altura máxima de la imagen */
+    height: auto; /* Asegura que la altura sea exactamente 20px */
+    width: auto; /* Mantiene la proporción */
+}

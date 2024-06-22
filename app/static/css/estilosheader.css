@@ -1,0 +1,105 @@
+/* Header Styles */
+.header {
+    padding: 10px 20px; /* Agrega 20px de padding a la izquierda y a la derecha del encabezado */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+}
+
+.header-column {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#header-izq {
+    flex: 0.25;
+}
+
+#header-cen {
+    flex: 0.5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#header-der {
+
+    flex: 0.25;
+    display: flex;
+    align-items: left;
+    justify-content: center;
+}
+
+.logo-img {
+    width: 70%;
+    height: 70%;
+}
+
+.nav ul {
+    display: flex; /* Mostrar los elementos en línea */
+    align-items: center; /* Centrar verticalmente los elementos */
+    list-style: none;
+    padding: 0;
+}
+
+
+.nav ul li {
+    margin: 0 10px;
+}
+
+.nav ul li a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.dropdown-menu-end {
+    right: 0;
+    left: auto;
+}
+
+.profile-pic {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  
+
+.dropdown-item {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+
+/*ESTILOS PARA EL BOTON DE VOLVER AL INICIO*/
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #6358df; /* Puedes cambiar el color según tus necesidades */
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3; /* Color al pasar el cursor por encima */
+}
+
+
+
+  
+
+  
