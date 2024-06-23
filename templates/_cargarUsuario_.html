@@ -3,6 +3,19 @@
 
 {% block extra_styles %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/estilos_cargarUsuario_.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+<!-- estilos de la casilla de dubir foto -->
+<style>
+    .valid-feedback {
+        color: green;
+        display: none;
+    }
+    .invalid-feedback {
+        color: red;
+        display: none;
+    }
+</style>
 {% endblock %}
 
 {% block body %}
@@ -33,7 +46,7 @@
             
 
             <!-- Primer y segundo nombre -->
-            <div class="row g-3">
+            <div class="row g-3 mt-3">
                 <div class="col">
                     <label for="nombre1">Primer Nombre: *</label>
                     <input type="text" class="form-control" id="nombre1" name="nombre1" required>
@@ -92,6 +105,8 @@
                 <div class="col">
                     <label for="foto">Foto:</label>
                     <input type="file" class="form-control" id="foto" name="foto">
+                    <div id="feedback" class="invalid-feedback">Formato de archivo inválido. Solo permitido: .jpg, .jpeg, .png, .gif.</div>
+                    <div id="valid-feedback" class="valid-feedback"><i class="fas fa-check"></i> Formato de archivo válido.</div>
                 </div>
                 <div class="col">
         
@@ -195,7 +210,7 @@
                         <option value="">Seleccione un país</option>
                         <!-- Opciones se llenarán dinámicamente -->
                     </select>
-                    <input type="hidden" id="idPaisInput" readonly>
+                    <input type="hidden" id="idPaisInput" name="idPaisInput" readonly>
                 </div>
 
                 <div class="col">
@@ -204,7 +219,7 @@
                         
                         <!-- Opciones se llenarán dinámicamente -->
                     </select>
-                    <input type="hidden" id="idRegionInput" readonly>
+                    <input type="hidden" id="idRegionInput" name="idRegionInput" readonly>
                     <input type="hidden" id="pais_idpais" readonly>
                 </div>
             </div>
@@ -217,7 +232,7 @@
                         <option value="">Seleccione una comuna</option>
                         <!-- Opciones se llenarán dinámicamente -->
                     </select>
-                    <input type="hidden" id="idComunaInput" readonly>
+                    <input type="hidden" id="idComunaInput" name="idComunaInput" readonly>
                     <input type="hidden" id="idRegionFK" readonly>
                 </div>
                 
@@ -239,11 +254,11 @@
                     </div>
                 </div>
                 <div class="col">
-                    <input type="hidden" id="estadoHabilitacionUsuario" readonly>
+                    <input type="hidden" id="estadoHabilitacionUsuario" name="estadoHabilitacionUsuario" readonly>
                 </div>
             </div>
             
-            <!-- Botón para cargar usuario -->
+            <!-- Botón para previsualizar usuario -->
             <div class="row g-3 mt-3">
                 <div class="row">
                     <div class="col">
@@ -252,6 +267,8 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Botón para cargar usuario -->
             <div class="row g-3 mt-3">
                 <form method="POST" action="{{ url_for('cargarUsuario') }}">
                     <button type="submit" class="btn btn-primary mt-3">Cargar Usuario</button>
@@ -259,6 +276,9 @@
             </div>
 
         </form>
+        {% block footer %}
+            {% include '_footer.html' %}
+        {% endblock %}
 
 
         {% block scripts %}
