@@ -26,7 +26,7 @@
         {% block derecha %}
             <div class="dropdown">
                 <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="{{ url_for('static', filename='users_images/descarga.jpeg') }}" alt="Profile Picture" class="profile-pic me-2">
+                    <img src="{{ url_for('static', filename='users_images/' + current_user.foto ) }}" alt="Profile Picture" class="profile-pic me-2">
                     <span>{{ current_user.usuario }}</span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
@@ -65,11 +65,12 @@
         <!-- Inicio del main -->
         {% block main %}
         <main id="main-content">
-            <!-- <div>ID: {{ current_user.id }}</div>
+            <div>ID: {{ current_user.id }}</div>
             <div>Nombre: {{ current_user.nombre1 }}</div>
             <div>Apellido: {{ current_user.apellido1 }}</div>
             <div>Usuario: {{ current_user.usuario }}</div>
-            <div>Email: {{ current_user.email }}</div> -->
+            <div>Email: {{ current_user.email }}</div>
+            <div>ruta de la foto: {{ current_user.foto }}</div>
 
 
         </main>

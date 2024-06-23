@@ -78,7 +78,6 @@ function validarCorreo(correo) {
 }
 
 //validacion de datos ingresados en el login, para no mandar datos erroneos al servidor
-
 document.addEventListener("DOMContentLoaded", function() {
     const emailInput = document.getElementById("email");
     const usernameInput = document.getElementById("username");
@@ -90,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const passwordError = document.getElementById("passwordError");
 
     const usernameRegex = /^(uso0[1-4]0)\d{1,4}$/;
-    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{15,}$/;
 
     function validateEmail() {
         if (validarCorreo(emailInput.value)) {
@@ -112,27 +110,20 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    function validatePassword() {
-        if (passwordRegex.test(passwordInput.value)) {
-            passwordError.style.display = "none";
-            return true;
-        } else {
-            passwordError.style.display = "block";
-            return false;
-        }
-    }
-
     function validateForm() {
         const isEmailValid = validateEmail();
         const isUsernameValid = validateUsername();
-        const isPasswordValid = validatePassword();
+        // Eliminamos la validación del password
+        const isPasswordValid = true; // Opcionalmente, puedes mantener esta línea para evitar errores si es usada posteriormente.
         submitButton.disabled = !(isEmailValid && isUsernameValid && isPasswordValid);
     }
 
     emailInput.addEventListener("input", validateForm);
     usernameInput.addEventListener("input", validateForm);
-    passwordInput.addEventListener("input", validateForm);
+    passwordInput.addEventListener("input", validateForm); // Puedes mantener este listener o eliminarlo si ya no se utiliza.
 });
+
+
 
 document.getElementById('togglePassword').addEventListener('click', function (event) {
     event.preventDefault(); // Evita que el botón del "ojito" envíe el formulario
