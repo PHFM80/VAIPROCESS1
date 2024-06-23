@@ -1,8 +1,10 @@
 from flask import redirect, url_for
 import re
-import random
-import string
 from werkzeug.security import generate_password_hash
+from PIL import Image
+import io
+import os
+from werkzeug.utils import secure_filename
 
 
 
@@ -97,28 +99,6 @@ def buscarRegionPorPais(db, pais_id):
     cursor.close()
     return regiones
 
-
-
-
-def generarContrasena():
-    mayusculas = string.ascii_uppercase
-    minusculas = string.ascii_lowercase
-    digitos = string.digits
-    caracteres_especiales = string.punctuation + 'ñÑ'
-
-    all_characters = mayusculas + minusculas + digitos + caracteres_especiales
-    password = [
-        random.choice(mayusculas),
-        random.choice(minusculas),
-        random.choice(digitos),
-        random.choice(caracteres_especiales)
-    ]
-
-    password += random.choices(all_characters, k=11)
-    random.shuffle(password)
-    
-    return ''.join(password)
-
 def validarCorreo(correo):
     if ' ' in correo:
         return False
@@ -153,6 +133,46 @@ def validarCorreo(correo):
 def hash_password(password):
     return generate_password_hash(password)
 
+
+def editarNombreFoto(foto, usuario):
+    if foto and allowed_file(foto.filename):
+        # Cambiar la extensión a WebP y el nombre de la foto al nombre del usuario
+        nombre_archivo = f"{secure_filename(usuario)}.webp"
+        return nombre_archivo
+    
+    return None
+# Función auxiliar para verificar la extensión permitida
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in {'jpg', 'jpeg', 'png', 'gif'}
+
+
+def insertar_usuario(db, datos_usuario):
+    try:
+        cursor = db.connection.cursor()
+        query = """
+            INSERT INTO usuarios (id, nombre1, nombre2, apellido1, apellido2, fechaNacimiento, 
+            nroDocumento, foto, fechaDeAlta, habilitado, calle, numero, piso, departamento, 
+            email, usuario, password, telefono, tiposdedocumentos_idTipoDeDocumento, 
+            roles_idRol, paises_idpais, regiones_provincias_idRegion_Provincia, comunas_departamentos_idComuna_Departamento
+            ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+        """
+        cursor.execute(query, (
+            datos_usuario['id'], datos_usuario['nombre1'], datos_usuario['nombre2'], datos_usuario['apellido1'], datos_usuario['apellido2'], 
+            datos_usuario['fechaNacimiento'], datos_usuario['nroDocumento'], datos_usuario['foto'], datos_usuario['fechaDeAlta'], 
+            datos_usuario['habilitado'], datos_usuario['calle'], datos_usuario['numero'], datos_usuario['piso'], 
+            datos_usuario['departamento'], datos_usuario['email'], datos_usuario['usuario'], datos_usuario['password'], 
+            datos_usuario['telefono'], datos_usuario['tiposdedocumentos_idTipoDeDocumento'], datos_usuario['roles_idRol'], 
+            datos_usuario['paises_idpais'], datos_usuario['regiones_provincias_idRegion_Provincia'], 
+            datos_usuario['comunas_departamentos_idComuna_Departamento']
+        ))
+        db.connection.commit()
+    except Exception as e:
+        db.connection.rollback()
+        print("Error al ejecutar la consulta:", e)
+        raise e  
+    finally:
+        cursor.close()
 
 
 

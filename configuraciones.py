@@ -1,5 +1,4 @@
 
-
 class ConfigSK:
     SECRET_KEY = "@Pepeflores1980"
 

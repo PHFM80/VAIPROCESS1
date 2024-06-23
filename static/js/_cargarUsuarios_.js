@@ -60,8 +60,39 @@ if (telefonoInput) {
     console.error('Elemento con ID telefono no encontrado.');
 }
 
+// 3) funcion para verificar el formato de la foto
+document.getElementById('foto').addEventListener('change', function(event) {
+    const fileInput = event.target;
+    const file = fileInput.files[0];
+    const feedback = document.getElementById('feedback');
+    const validFeedback = document.getElementById('valid-feedback');
 
-// 3) Función para seleccionar el rol y pasar tipo de usuario
+    // Reset feedback
+    feedback.style.display = 'none';
+    validFeedback.style.display = 'none';
+
+    if (file) {
+        const fileName = file.name.toLowerCase();
+        const validExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+        const fileExtension = fileName.split('.').pop();
+
+        if (validExtensions.includes(fileExtension)) {
+            // Show valid feedback
+            validFeedback.style.display = 'block';
+        } else {
+            // Show invalid feedback
+            feedback.style.display = 'block';
+            
+            // Clear the file input after 5 seconds
+            setTimeout(() => {
+                fileInput.value = '';
+                feedback.style.display = 'none';
+            }, 5000);
+        }
+    }
+});
+
+// 4) Función para seleccionar el rol y pasar tipo de usuario
 function llenarSelectRoles() {
     var select = document.getElementById('rol');
     var idRolInput = document.getElementById('idRol');
@@ -89,7 +120,7 @@ function llenarSelectRoles() {
 }
 llenarSelectRoles();
 
-// 4) Función para generar el nombre de usuario
+// 5) Función para generar el nombre de usuario
 function generarNombreUsuario() {
     var btnGenerarUsuario = document.getElementById('btn-generar-usuario');
 
@@ -160,9 +191,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 5) Función para generar contraseñas
+// 6) Función para generar contraseñas
 function generarContrasena() {
-    const length = 15;
+    const length = 14;
     const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+~`|}{[]:;?><,./-=";
     let password = "";
 
@@ -189,7 +220,7 @@ function generarContrasena() {
     document.getElementById('password').value = password;
 }
 
-//6) Función para mostrar/ocultar la contraseña
+// 7) Función para mostrar/ocultar la contraseña
 function togglePasswordVisibility() {
     const passwordInput = document.getElementById('password');
     const showPassword = document.getElementById('show-password');
@@ -200,7 +231,7 @@ function togglePasswordVisibility() {
     }
 }
 
-// 7) Función para inicializar la validación de email
+// 8) Función para inicializar la validación de email
 function initializeEmailValidation() {
     const emailInput = document.getElementById('email');
 
@@ -272,7 +303,7 @@ function initializeEmailValidation() {
 }
 document.addEventListener('DOMContentLoaded', initializeEmailValidation);
 
-// 8) Funciones para Seleccioanr Pais, Region, Comuna.  y filtrar
+// 9) Funciones para Seleccioanr Pais, Region, Comuna.  y filtrar
 
 // seleccion paises
 function iniciarSeleccionDePaises() {
@@ -479,7 +510,7 @@ document.addEventListener('DOMContentLoaded', function() {
     iniciarSelectRegion(); 
 });
 
-// 9) Funcion para marcar habilitado o inhabilitado
+// 10) Funcion para marcar habilitado o inhabilitado
 function toggleSwitch() {
     const checkbox = document.getElementById('habilitarUsuarioSwitch');
     const label = document.getElementById('switchLabel');
@@ -494,8 +525,8 @@ function toggleSwitch() {
     }
 }
 
-//10) Funcion para la previsualizacion 
-// Función para obtener el nombre del país seleccionado
+//11) Funcion para la previsualizacion 
+// Función para obtener el tipo de doc seleccionado
 function obtenerNombrePais(idPais) {
     var pais = paises.find(function(pais) {
         return pais[0] == idPais;
@@ -506,6 +537,32 @@ function obtenerNombrePais(idPais) {
     } else {
         console.error("No se encontró el país seleccionado en los datos proporcionados.");
         return "País no encontrado";
+    }
+}
+// Función para obtener el nombre del país seleccionado
+function obtenerTipoDoc(tipoDocumento) {
+    var tipoDoc = tiposDocumento.find(function(tipoDoc) {
+        return tipoDoc[0] == tipoDocumento;
+    });
+
+    if (tipoDoc) {
+        return tipoDoc[1];
+    } else {
+        console.error("No se encontró el tipo de documento seleccionado en los datos proporcionados.");
+        return "Tipo Doc no encontrado";
+    }
+}
+// Función para obtener el nombre del país seleccionado
+function obtenerRol(rol) {
+    var tipoRol = roles.find(function(tipoRol) {
+        return tipoRol[0] == rol;
+    });
+
+    if (tipoRol) {
+        return tipoRol[1];
+    } else {
+        console.error("No se encontró el rol seleccionado en los datos proporcionados.");
+        return "Rol no encontrado";
     }
 }
 // Función para obtener el nombre de la región seleccionada
@@ -571,6 +628,8 @@ document.addEventListener('DOMContentLoaded', function() {
         var pais = obtenerNombrePais(idPais);
         var region = obtenerNombreRegion(idRegion);
         var comuna = obtenerNombreComuna(idComuna);
+        var tipoDocumento = obtenerTipoDoc(tipoDocumento);
+        var rol = obtenerRol(rol);
 
 
         // Crear el contenido HTML para la previsualización
