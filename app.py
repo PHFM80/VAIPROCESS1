@@ -4,7 +4,6 @@ from configuraciones import config
 from flask_mysqldb import MySQL
 from flask_login import LoginManager, current_user, login_user, logout_user, login_required
 from funciones import hash_password, status_401, status_404, get_user_type, buscarComuna, buscarPais, buscarRegion, buscarRoles, buscarTiposDocumento, obtenerSiguienteIdUsuario, generate_password_hash, validarCorreo,  buscarRegionPorPais, editarNombreFoto, insertar_usuario
-from werkzeug.utils import secure_filename
 import shutil
 
 
@@ -60,12 +59,20 @@ def login():
                 return redirect(url_for('index'))  # Redirigir a la página de índice (index)
             else:
                 login_user(logged_user)
-                return redirect(url_for('dashboard'))
+                
+                # Filtrar y redirigir según el prefijo del usuario
+                if logged_user.usuario.startswith('uso01') or logged_user.usuario.startswith('uso02'):
+                    return redirect(url_for('dashboardUso01_02'))
+                elif logged_user.usuario.startswith('uso03') or logged_user.usuario.startswith('uso04'):
+                    return redirect(url_for('dashboardUso03_04'))
+                else:
+                    flash("Usuario no autorizado para acceder a ningún dashboard.")
+                    return redirect(url_for('index'))
+
         else:
             flash("Correo electrónico no encontrado.")
 
     return render_template("login.html")
-
 
 
 @app.route('/logout')
@@ -74,21 +81,25 @@ def logout():
     return redirect(url_for('index'))
 
 
-@app.route('/dashboard')
+@app.route('/dashboardUso01_02')
 @login_required
-def dashboard():
+def dashboardUso01_02():
     user_type = get_user_type(current_user.usuario)
-    return render_template('dashboard.html', user_type=user_type)
-
+    return render_template('dashboardUso01_02.html', user_type=user_type)
+@app.route('/dashboardUso03_04')
+@login_required
+def dashboardUso03_04():
+    user_type = get_user_type(current_user.usuario)
+    return render_template('dashboardUso03_04.html', user_type=user_type)
 
 # Configuración del directorio donde se guardarán las fotos
 UPLOAD_FOLDER = os.path.join('static', 'users_images')
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 # Asegúrate de que el directorio de carga exista
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
 @app.route('/cargarUsuario', methods=['GET', 'POST'])
-@login_required
+# recordar de activar el login required cuando termine la implementacion
+#@login_required
 def cargarUsuario():
     if request.method == 'GET':
         # Obtener los datos necesarios para cargar la página inicialmente
@@ -105,8 +116,7 @@ def cargarUsuario():
 
     elif request.method == 'POST':
         # Obtener los datos del formulario
-        id = obtenerSiguienteIdUsuario(bd)
-        print (f"El id es: {id}")
+        id = obtenerSiguienteIdUsuario(db)
         nombre1 = request.form['nombre1']
         nombre2 = request.form['nombre2']
         apellido1 = request.form['apellido1']
@@ -114,7 +124,11 @@ def cargarUsuario():
         fechaNacimiento = request.form['fechaNacimiento']
         nroDocumento = request.form['nroDocumento']
         fechaDeAlta = request.form['fechaAlta']
-        habilitado = 'estadoHabilitacionUsuario' in request.form
+        habilitado = request.form['estadoHabilitacionUsuario' ]
+        if habilitado == 'True':
+            habilitado = True
+        else:
+            habilitado = False
         calle = request.form['calle']
         numero = request.form['numero']
         piso = request.form['piso']
@@ -144,7 +158,6 @@ def cargarUsuario():
                 ruta_guardado = os.path.join(app.config['UPLOAD_FOLDER'], nombre_archivo_webp)
                 shutil.copy(ruta_predeterminada, ruta_guardado)
                 
-
         datos_usuario = {
             'id': id, 'nombre1': nombre1, 'nombre2': nombre2, 'apellido1': apellido1, 'apellido2': apellido2,
             'fechaNacimiento': fechaNacimiento, 'nroDocumento': nroDocumento, 'foto': nombre_archivo_webp,
@@ -155,23 +168,33 @@ def cargarUsuario():
             'regiones_provincias_idRegion_Provincia': regiones_provincias_idRegion_Provincia,
             'comunas_departamentos_idComuna_Departamento': comunas_departamentos_idComuna_Departamento
         }
-
         try:
             insertar_usuario(db, datos_usuario)
             print("El usuario se cargó exitosamente")
         except Exception as e:
             print(f"Error al cargar el usuario: {e}")
 
-        return redirect(url_for('dashboard'))
+        return redirect(url_for('dashboardUso01_02'))
 
+# Esta ruta es muy importante, se encargara de traer los datos del usuario.  para poder usarlos luego
+# @app.route('/listarUsuarios', methods=['GET'])
+# @login_required
+# def listarUsuarios():
+#     # Consulta para obtener la lista de usuarios
+#     usuarios = obtenerTodosUsuarios(db)
+    
+#     # Consulta para obtener nombres de países, regiones y comunas
+#     paises = obtenerPaises(db)
+#     regiones = obtenerRegiones(db)
+#     comunas = obtenerComunas(db)
 
-
-
-
-
+#     # Renderizar la plantilla con la lista de usuarios
+#     return render_template('listarUsuarios.html', usuarios=usuarios, paises=paises, regiones=regiones, comunas=comunas)
 
 
 @app.route('/eliminarUsuario')
+# recordar de activar el login required cuando termine la implementacion
+# @login_required
 def eliminarUsuario():
     return render_template('_eliminarUsuario_.html')
 

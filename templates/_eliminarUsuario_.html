@@ -1,0 +1,66 @@
+{% extends "./plantilla.html" %}
+
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilos_eliminarUsuario_.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+
+{% endblock %}
+
+{% block body %}
+    <body>
+    
+        <!-- Inicio del Header -->
+        {% block header %}
+        <header class="header">
+            {% block izquierda %}
+                {% include '_logo.html' %}
+            {% endblock %}
+
+            {% block centro %}
+            <h2>Cargar Usuario</h2>
+            {% endblock %}
+
+            {% block derecha %}
+            <div class="header-column", id = "header-der">
+                <a href=" {{ url_for('dashboardUso01_02') }} " class="button"> Volver </a>
+            </div>
+            {% endblock %}
+        </header>
+        {% endblock %}
+        <!-- Fin del Header -->
+        
+        <!-- Inicio del main -->
+        <main>
+            {% block main %}
+            <div>
+                <input type="text" id="contraseñaGenerada" readonly>
+            </div>
+            <div>
+                <button onclick="generarContrasena()">generar contraseña</button>
+            </div>
+            <div>
+                <input type="password" class="form-control" id="contraseña" oninput="verificarContraseña()">
+                <!-- Mensaje de advertencia -->
+                <div class="invalid-feedback">
+                    La contraseña debe incluir al menos una mayúscula, una minúscula, un dígito y un carácter especial.
+                </div>
+            </div>
+
+
+            {% endblock %}
+        </main>
+        <!-- Fin del main -->
+
+        {% block footer %}
+            {% include '_footer.html' %}
+        {% endblock %}
+
+
+        {% block scripts %}
+        <script src="{{ url_for('static', filename='js/_eliminarUsuario_.js') }}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        {% endblock %}
+    </body>
+{% endblock %}
