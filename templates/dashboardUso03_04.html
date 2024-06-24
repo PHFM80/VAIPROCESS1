@@ -1,7 +1,7 @@
 {% extends "./plantilla.html" %}
 
 
-{% block title %} Dashboard - {{ user_type }} {% endblock %}
+{% block title %} Dashboard - Usuarios {{ user_type }} {% endblock %}
 
 
 {% block extra_styles %}
@@ -71,6 +71,9 @@
             <div>Usuario: {{ current_user.usuario }}</div>
             <div>Email: {{ current_user.email }}</div>
             <div>ruta de la foto: {{ current_user.foto }}</div>
+            <div>Hbilitado: {{ current_user.habilitado }}</div>
+
+         
 
 
         </main>

@@ -1,0 +1,92 @@
+{% extends "./plantilla.html" %}
+
+
+{% block title %} Dashboard - Empresa {{ user_type }} {% endblock %}
+
+
+{% block extra_styles %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilosdashboard.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilosModulos.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/estilosfooter.css') }}">
+{% endblock %}
+
+
+{% block body %}
+    <!-- Inicio del Header -->
+    {% block header %}
+    <header class="header">
+        {% block izquierda %}
+            {% include '_logo.html' %}
+        {% endblock %}
+
+        {% block centro %}
+            <h1>Bienvenido {{ current_user.nombre1 }} {{ current_user.apellido1 }} <br> al dashboard de {{ user_type }}</h1>
+        {% endblock %}
+
+        {% block derecha %}
+            <div class="dropdown">
+                <a class="d-flex align-items-center text-decoration-none dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                    <img src="{{ url_for('static', filename='users_images/' + current_user.foto ) }}" alt="Profile Picture" class="profile-pic me-2">
+                    <span>{{ current_user.usuario }}</span>
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="#">Cambiar foto</a></li>
+                    <li><a class="dropdown-item" href="#">Cambiar contraseña</a></li>
+                    <li><hr class="dropdown-divider"></li> <!-- linea divisora -->
+                    <li><a class="dropdown-item" href="{{ url_for('logout') }}">Salir</a></li>
+                </ul>
+            </div>
+        {% endblock %}
+    </header>
+    {% endblock %}
+    <!-- Fin del Header -->
+
+    
+    <!-- Contenedor del aside y del main -->
+    <div class="container">
+        <!-- Inicio del aside -->
+        {% block aside %}
+        <aside class="aside" id="aside" >
+            <!-- Aside para los módulos de los usuarios -->
+            {% if user_type == 'Administrador' %}
+                {% include '_modulosAdministrador.html' %}
+            {% elif user_type == 'Administrativo' %}
+                {% include '_modulosAdministrativo.html' %}
+            {% elif user_type == 'Avanzado' %}
+                {% include '_modulosAvanzado.html' %}
+            {% elif user_type == 'Usuario' %}
+                {% include '_modulosUsuario.html' %}
+
+            {% endif %}
+        </aside>
+        {% endblock %}
+        <!-- Fin del aside -->
+
+        <!-- Inicio del main -->
+        {% block main %}
+        <main id="main-content">
+            <div>ID: {{ current_user.id }}</div>
+            <div>Nombre: {{ current_user.nombre1 }}</div>
+            <div>Apellido: {{ current_user.apellido1 }}</div>
+            <div>Usuario: {{ current_user.usuario }}</div>
+            <div>Email: {{ current_user.email }}</div>
+            <div>ruta de la foto: {{ current_user.foto }}</div>
+
+         
+
+
+        </main>
+        {% endblock %}
+        <!-- Fin del main -->
+    </div>
+
+    {% block footer %}
+        {% include '_footer.html' %}
+    {% endblock %}
+
+    {% block scripts %}
+
+    <script src="{{ url_for('static', filename='js/aside_dash.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {% endblock %}
+{% endblock %}

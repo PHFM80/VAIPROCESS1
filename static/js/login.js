@@ -1,18 +1,14 @@
-
+// Función para contar los puntos en un dominio
 function contarPuntosDominio(dominio) {
     return (dominio.match(/\./g) || []).length;
 }
-
-function separarYContarPartes(oracion) {
-    // Separar la oración en partes usando el punto como delimitador
-    let partes = oracion.split('.');
-    
-    // Contar los caracteres de cada parte
+// Función para separar un dominio en partes y contar las longitudes de las partes
+function separarYContarPartes(dominio) {
+    let partes = dominio.split('.');
     let longitudes = partes.map(parte => parte.length);
-    
     return [partes, longitudes];
 }
-
+// Función para validar un correo electrónico
 function validarCorreo(correo) {
     // Verificar si el correo contiene espacios en blanco
     if (correo.includes(' ')) {
@@ -76,9 +72,9 @@ function validarCorreo(correo) {
 
     return true;
 }
-
 //validacion de datos ingresados en el login, para no mandar datos erroneos al servidor
 document.addEventListener("DOMContentLoaded", function() {
+    // Elementos del formulario y mensajes de error
     const emailInput = document.getElementById("email");
     const usernameInput = document.getElementById("username");
     const passwordInput = document.getElementById("password");
@@ -88,52 +84,131 @@ document.addEventListener("DOMContentLoaded", function() {
     const usernameError = document.getElementById("usernameError");
     const passwordError = document.getElementById("passwordError");
 
+    // Expresión regular para validar el nombre de usuario
     const usernameRegex = /^(uso0[1-4]0)\d{1,4}$/;
 
+    // Función para validar el correo electrónico
     function validateEmail() {
-        if (validarCorreo(emailInput.value)) {
-            emailError.style.display = "none";
-            return true;
-        } else {
-            emailError.style.display = "block";
-            return false;
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('emailError');
+        const emailValue = emailInput.value.trim();
+
+        // Verificar campo vacío
+        if (emailValue === '') {
+            emailError.style.display = "none"; // Ocultar mensaje de advertencia
+            emailInput.classList.remove('is-invalid');
+            emailInput.classList.remove('is-valid');
+            return false; // El campo vacío no es válido
         }
+
+        // Validar el formato del correo solo si no está vacío
+        const isValid = validarCorreo(emailValue);
+
+        if (isValid) {
+            emailError.style.display = "none"; // Ocultar mensaje de error
+            emailInput.classList.remove('is-invalid');
+            emailInput.classList.add('is-valid');
+        } else {
+            emailError.style.display = "block"; // Mostrar mensaje de error
+            emailInput.classList.remove('is-valid');
+            emailInput.classList.add('is-invalid');
+        }
+
+        return isValid;
     }
 
+    // Función para validar el nombre de usuario
     function validateUsername() {
-        if (usernameRegex.test(usernameInput.value)) {
+        const usernameInput = document.getElementById('username');
+        const usernameError = document.getElementById('usernameError');
+        const usernameValue = usernameInput.value.trim(); // Obtener valor del campo y quitar espacios en blanco al inicio y final
+        const isValid = usernameRegex.test(usernameValue);
+
+        if (usernameValue === '') {
+            // Campo vacío: no mostrar ningún mensaje ni clase de validación
             usernameError.style.display = "none";
-            return true;
+            usernameInput.classList.remove('is-invalid', 'is-valid');
+            return false; // Retorna falso porque el campo está vacío
+        } else if (isValid) {
+            // Usuario válido: mostrar palomita verde y quitar advertencia roja
+            usernameError.style.display = "none"; // Ocultar mensaje de error
+            usernameInput.classList.remove('is-invalid');
+            usernameInput.classList.add('is-valid');
+            return true; // Retorna verdadero porque el usuario es válido
         } else {
-            usernameError.style.display = "block";
-            return false;
+            // Usuario inválido: mostrar mensaje de error y quitar palomita verde
+            usernameError.style.display = "block"; // Mostrar mensaje de error
+            usernameInput.classList.remove('is-valid');
+            usernameInput.classList.add('is-invalid');
+            return false; // Retorna falso porque el usuario es inválido
         }
     }
+    // Función para validar la contraseña
+    function verificarContraseña() {
+        const contraseñaInput = document.getElementById("password");
+        const contraseña = contraseñaInput.value.trim();
 
+        if (contraseña === '') {
+            passwordError.style.display = "none"; // Ocultar mensaje de advertencia
+            contraseñaInput.classList.remove('is-invalid');
+            contraseñaInput.classList.remove('is-valid');
+            return false; // El campo vacío no es válido
+        }
+
+        let tieneMayuscula = /[A-Z]/.test(contraseña);
+        let tieneMinuscula = /[a-z]/.test(contraseña);
+        let tieneDigito = /\d/.test(contraseña);
+        let tieneEspecial = /[!@#$%^&*()_+~`|}{[\]:";?><,./-=]/.test(contraseña);
+
+        const isValid = tieneMayuscula && tieneMinuscula && tieneDigito && tieneEspecial;
+
+        if (isValid) {
+            // Contraseña válida: mostrar palomita verde y quitar advertencia roja
+            contraseñaInput.classList.remove('is-invalid');
+            contraseñaInput.classList.add('is-valid');
+            passwordError.style.display = "none"; // Ocultar mensaje de advertencia
+        } else {
+            // Contraseña inválida: mostrar advertencia roja y quitar palomita verde
+            contraseñaInput.classList.remove('is-valid');
+            contraseñaInput.classList.add('is-invalid');
+            passwordError.style.display = "block"; // Mostrar mensaje de advertencia
+        }
+
+        return isValid;
+    }
+
+
+    // Función para validar el formulario completo
     function validateForm() {
         const isEmailValid = validateEmail();
         const isUsernameValid = validateUsername();
-        // Eliminamos la validación del password
-        const isPasswordValid = true; // Opcionalmente, puedes mantener esta línea para evitar errores si es usada posteriormente.
+        const isPasswordValid = verificarContraseña();
         submitButton.disabled = !(isEmailValid && isUsernameValid && isPasswordValid);
     }
+
+    // Agregar listeners de eventos para validar el formulario en cada cambio
 
     emailInput.addEventListener("input", validateForm);
     usernameInput.addEventListener("input", validateForm);
     passwordInput.addEventListener("input", validateForm); // Puedes mantener este listener o eliminarlo si ya no se utiliza.
+
+   
+    
+
+
+
 });
 
-
-
+// Evento para alternar entre mostrar/ocultar la contraseña
 document.getElementById('togglePassword').addEventListener('click', function (event) {
     event.preventDefault(); // Evita que el botón del "ojito" envíe el formulario
     const passwordField = document.getElementById('password');
     const passwordFieldType = passwordField.getAttribute('type');
     if (passwordFieldType === 'password') {
-      passwordField.setAttribute('type', 'text');
-      this.textContent = '👁️'; // Cambia el icono al de ojos cerrados
+        passwordField.setAttribute('type', 'text');
+        this.textContent = '👁️'; // Cambia el icono al de ojos cerrados
     } else {
-      passwordField.setAttribute('type', 'password');
-      this.textContent = '🙈'; // Cambia el icono al de ojos abiertos
+        passwordField.setAttribute('type', 'password');
+        this.textContent = '🙈'; // Cambia el icono al de ojos abiertos
     }
 });

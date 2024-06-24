@@ -2,8 +2,6 @@ from flask import redirect, url_for
 import re
 from werkzeug.security import generate_password_hash
 from PIL import Image
-import io
-import os
 from werkzeug.utils import secure_filename
 
 
